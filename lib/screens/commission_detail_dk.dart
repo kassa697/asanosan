@@ -1,4 +1,5 @@
 import 'package:car_go_bridge/models/commission_content.dart';
+import 'package:car_go_bridge/provider/trans.dart';
 import 'package:car_go_bridge/screens/commission_list_dk.dart';
 import 'package:car_go_bridge/utils/range_text_input_formatter.dart';
 import 'package:car_go_bridge/widgets/commission_transport_route_widget.dart';
@@ -10,17 +11,23 @@ import 'package:car_go_bridge/widgets/dino_status_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class CommissionDetailDKPage extends StatefulWidget {
+// 状態管理を利用する例
+// 今回は元々のコードで使われていたStatefulWidgetから
+// ConsumerStatefulWidgetに変換しています。
+
+// StatefulWidgetのところをConsumerStatefulWidgetに書き換える todo:変更点
+class CommissionDetailDKPage extends ConsumerStatefulWidget {
   // final TransportOrder orderlist;
   final TransportOrder currentOrder;
   const CommissionDetailDKPage( {super.key, required this.currentOrder,});
   @override
-  State<CommissionDetailDKPage> createState() => _CommissionDetailDKPageState();
+  CommissionDetailDKPageState createState() => CommissionDetailDKPageState();
 }
 
-class _CommissionDetailDKPageState extends State<CommissionDetailDKPage> {
+class CommissionDetailDKPageState extends ConsumerState<CommissionDetailDKPage> {
   String? selectedOption;
   String carNumber = '';
   bool isShoppingListChecked = false;
@@ -35,7 +42,7 @@ class _CommissionDetailDKPageState extends State<CommissionDetailDKPage> {
   String? transportVehicleType;
   String? dinoStatus='見積照会(DK)';
   List<Map<String, TextEditingController>> _controllersList = [];
-  
+
 //carNumberを数値に変更
   int _parseCarNumber() {
     if (carNumber.isNotEmpty) {
@@ -49,6 +56,7 @@ class _CommissionDetailDKPageState extends State<CommissionDetailDKPage> {
   }
 
   Future<void> updateOrder() async{
+    final sendData = ref.watch(sendProvider);
     final doc = FirebaseFirestore.instance.collection('orders').doc(widget.currentOrder.orderId);
     await doc.update({
       'title': titleController.text,
@@ -68,6 +76,16 @@ class _CommissionDetailDKPageState extends State<CommissionDetailDKPage> {
       'remarks': remarksController.text,
       'shoppingList':isShoppingListChecked,
       'dinoStatus': dinoStatus,
+      // 以下は「sendProvider」の状態を参照してテキストフィールドのcontrollerにアクセスする例です。
+      'send_test': ref.watch(sendProvider).testController.text,
+      // 54行目に宣言していれば下のように書いてもOK
+      'send_test2': sendData.testController2.text,
+      'send_test3': ref.watch(sendProvider).testController3.text,
+      'send_test4': ref.watch(sendProvider).testController4.text,
+      'send_test5': ref.watch(sendProvider).testController5.text,
+      'send_test6': ref.watch(sendProvider).testController6.text,
+      'send_test7': ref.watch(sendProvider).testController7.text,
+      'send_test7': ref.watch(sendProvider).testController8.text,
     });
   }
 
