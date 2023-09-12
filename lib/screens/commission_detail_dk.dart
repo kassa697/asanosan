@@ -18,15 +18,35 @@ import 'package:intl/intl.dart';
 // 今回は元々のコードで使われていたStatefulWidgetから
 // ConsumerStatefulWidgetに変換しています。
 
+
+// 書き換え前のコード全体は以下になります。
+// class CommissionDetailDKPage extends StatefulWidget {
+//   // final TransportOrder orderlist;
+//   final TransportOrder currentOrder;
+//   const CommissionDetailDKPage( {super.key, required this.currentOrder,});
+//   @override
+//   State<CommissionDetailDKPage> createState() => _CommissionDetailDKPageState();
+// }
+//
+// class _CommissionDetailDKPageState extends State<CommissionDetailDKPage> {
+
 // StatefulWidgetのところをConsumerStatefulWidgetに書き換える todo:変更点
 class CommissionDetailDKPage extends ConsumerStatefulWidget {
   // final TransportOrder orderlist;
   final TransportOrder currentOrder;
   const CommissionDetailDKPage( {super.key, required this.currentOrder,});
   @override
+  /*
+  変更前　ここは公式情報を元に変換したので何故こうなるのかまでは説明できません…
+  State<CommissionDetailDKPage> createState() => _CommissionDetailDKPageState();
+   */
   CommissionDetailDKPageState createState() => CommissionDetailDKPageState();
 }
-
+/*
+変更前
+class _CommissionDetailDKPageState extends State<CommissionDetailDKPage> {
+StateのところにConsumerを追記
+ */
 class CommissionDetailDKPageState extends ConsumerState<CommissionDetailDKPage> {
   String? selectedOption;
   String carNumber = '';
@@ -56,6 +76,7 @@ class CommissionDetailDKPageState extends ConsumerState<CommissionDetailDKPage> 
   }
 
   Future<void> updateOrder() async{
+    // 状態の呼び出し例
     final sendData = ref.watch(sendProvider);
     final doc = FirebaseFirestore.instance.collection('orders').doc(widget.currentOrder.orderId);
     await doc.update({
@@ -85,7 +106,7 @@ class CommissionDetailDKPageState extends ConsumerState<CommissionDetailDKPage> 
       'send_test5': ref.watch(sendProvider).testController5.text,
       'send_test6': ref.watch(sendProvider).testController6.text,
       'send_test7': ref.watch(sendProvider).testController7.text,
-      'send_test7': ref.watch(sendProvider).testController8.text,
+      'send_test8': ref.watch(sendProvider).testController8.text,
     });
   }
 
