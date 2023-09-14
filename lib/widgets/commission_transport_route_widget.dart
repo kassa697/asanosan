@@ -1,57 +1,29 @@
+import 'package:car_go_bridge/provider/trans.dart';
 import 'package:flutter/material.dart';
 import 'package:car_go_bridge/widgets/commission_widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 輸送経路
-class CommissionTransportRouteWidget extends StatefulWidget {
+class CommissionTransportRouteWidget extends ConsumerStatefulWidget {
   const CommissionTransportRouteWidget({Key? key}) : super(key: key);
 
   @override
-  State<CommissionTransportRouteWidget> createState() =>
-      _CommissionTransportRouteWidgetState();
+  CommissionTransportRouteWidgetState createState() =>
+      CommissionTransportRouteWidgetState();
 }
 
-class _CommissionTransportRouteWidgetState
-    extends State<CommissionTransportRouteWidget> {
-  late final TextEditingController _departurePlaceController;
-  late final TextEditingController _departureUnreadableController;
-  late final TextEditingController _departurePersonInChargeController;
-  late final TextEditingController _departureRemarksController;
+class CommissionTransportRouteWidgetState
+    extends ConsumerState<CommissionTransportRouteWidget> {
 
-  late final TextEditingController _arrivalPlaceController;
-  late final TextEditingController _arrivalUnreadableController;
-  late final TextEditingController _arrivalPersonInChargeController;
-  late final TextEditingController _arrivalRemarksController;
-
-  @override
-  void initState() {
-    super.initState();
-    _departurePlaceController = TextEditingController();
-    _departureUnreadableController = TextEditingController();
-    _departurePersonInChargeController = TextEditingController();
-    _departureRemarksController = TextEditingController();
-
-    _arrivalPlaceController = TextEditingController();
-    _arrivalUnreadableController = TextEditingController();
-    _arrivalPersonInChargeController = TextEditingController();
-    _arrivalRemarksController = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    _departurePlaceController.dispose();
-    _departureUnreadableController.dispose();
-    _departurePersonInChargeController.dispose();
-    _departureRemarksController.dispose();
-
-    _arrivalPlaceController.dispose();
-    _arrivalUnreadableController.dispose();
-    _arrivalPersonInChargeController.dispose();
-    _arrivalRemarksController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final sendData = ref.watch(sendProvider);
+    final autoDisposeProvider = Provider.autoDispose((ref) {
+      ref.onDispose(() {
+        // このProviderが使用されなくなった＝破棄される直前に実行されます
+      });
+    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       child: Column(
@@ -64,22 +36,22 @@ class _CommissionTransportRouteWidgetState
             children: [
               const Text('発: '),
               ExpandedTextField(
-                controller: _departurePlaceController,
+                controller: sendData.testController,
                 hintText: '場所',
               ),
               const SizedBox(width: 8),
               ExpandedTextField(
-                controller: _departureUnreadableController,
+                controller: sendData.testController2,
                 hintText: '日時',
               ),
               const SizedBox(width: 8),
               ExpandedTextField(
-                controller: _departurePersonInChargeController,
+                controller: sendData.testController3,
                 hintText: '受入担当者',
               ),
               const SizedBox(width: 8),
               ExpandedTextField(
-                controller: _departureRemarksController,
+                controller: sendData.testController4,
                 hintText: '備考',
               ),
             ],
@@ -90,24 +62,26 @@ class _CommissionTransportRouteWidgetState
             children: [
               const Text('着: '),
               ExpandedTextField(
-                controller: _arrivalPlaceController,
+                controller: sendData.testController5,
                 hintText: '場所',
               ),
               const SizedBox(width: 8),
               ExpandedTextField(
-                controller: _arrivalUnreadableController,
+                controller: sendData.testController6,
                 hintText: '日時',
               ),
               const SizedBox(width: 8),
               ExpandedTextField(
-                controller: _arrivalPersonInChargeController,
+                controller: sendData.testController7,
                 hintText: '受入担当者',
               ),
               const SizedBox(width: 8),
               ExpandedTextField(
-                controller: _arrivalRemarksController,
+                controller: sendData.testController8,
                 hintText: '備考',
               ),
+              ElevatedButton(onPressed: () {
+              }, child: const Text('出力確認'))
             ],
           ),
           const SizedBox(height: 5),
@@ -116,3 +90,42 @@ class _CommissionTransportRouteWidgetState
     );
   }
 }
+
+
+// late final TextEditingController _departurePlaceController;
+// late final TextEditingController _departureUnreadableController;
+// late final TextEditingController _departurePersonInChargeController;
+// late final TextEditingController _departureRemarksController;
+//
+// late final TextEditingController _arrivalPlaceController;
+// late final TextEditingController _arrivalUnreadableController;
+// late final TextEditingController _arrivalPersonInChargeController;
+// late final TextEditingController _arrivalRemarksController;
+//
+// @override
+// void initState() {
+//   super.initState();
+//   _departurePlaceController = TextEditingController();
+//   _departureUnreadableController = TextEditingController();
+//   _departurePersonInChargeController = TextEditingController();
+//   _departureRemarksController = TextEditingController();
+//
+//   _arrivalPlaceController = TextEditingController();
+//   _arrivalUnreadableController = TextEditingController();
+//   _arrivalPersonInChargeController = TextEditingController();
+//   _arrivalRemarksController = TextEditingController();
+// }
+//
+// @override
+// void dispose() {
+//   _departurePlaceController.dispose();
+//   _departureUnreadableController.dispose();
+//   _departurePersonInChargeController.dispose();
+//   _departureRemarksController.dispose();
+//
+//   _arrivalPlaceController.dispose();
+//   _arrivalUnreadableController.dispose();
+//   _arrivalPersonInChargeController.dispose();
+//   _arrivalRemarksController.dispose();
+//   super.dispose();
+// }

@@ -21,10 +21,7 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
@@ -47,32 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCn4bHXL2_4ytd-d3BMTSRStFfPeMZPUcA',
-    appId: '1:595210072308:web:c67baa03cff01a2733eea1',
-    messagingSenderId: '595210072308',
-    projectId: 'cargobridge-ff5ec',
-    authDomain: 'cargobridge-ff5ec.firebaseapp.com',
-    storageBucket: 'cargobridge-ff5ec.appspot.com',
-    measurementId: 'G-GJYE2KHE6D',
+    apiKey: 'AIzaSyDui-u3qKvv3nSmKdNuB2a564ML8jzUUvo',
+    appId: '1:88512570782:web:4e838e4ceb01099b7ce28f',
+    messagingSenderId: '88512570782',
+    projectId: 'asanosanapp',
+    authDomain: 'asanosanapp.firebaseapp.com',
+    storageBucket: 'asanosanapp.appspot.com',
+  );
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyAJ1Hpy_nX2P6yY2wIqWSZpZNzQBTieIYY',
+    appId: '1:88512570782:android:39c92b4dd9ed86e87ce28f',
+    messagingSenderId: '88512570782',
+    projectId: 'asanosanapp',
+    storageBucket: 'asanosanapp.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA2lpw2AMoFAgtomur-mGN_BLFmHXVjcHE',
-    appId: '1:595210072308:ios:0895e572e4c45a8a33eea1',
-    messagingSenderId: '595210072308',
-    projectId: 'cargobridge-ff5ec',
-    storageBucket: 'cargobridge-ff5ec.appspot.com',
-    iosClientId: '595210072308-ulbmsesdh9kqinv6eo795ckj26l659lt.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA6oXG_8r_o0ShAKvlThB37dd_wrVluuCY',
+    appId: '1:88512570782:ios:5ce6bd26915cea3e7ce28f',
+    messagingSenderId: '88512570782',
+    projectId: 'asanosanapp',
+    storageBucket: 'asanosanapp.appspot.com',
+    iosClientId: '88512570782-ji1i6v3oerko7n98dcvlu3q0r5g2gq4h.apps.googleusercontent.com',
     iosBundleId: 'com.example.carGoBridge',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA2lpw2AMoFAgtomur-mGN_BLFmHXVjcHE',
-    appId: '1:595210072308:ios:0895e572e4c45a8a33eea1',
-    messagingSenderId: '595210072308',
-    projectId: 'cargobridge-ff5ec',
-    storageBucket: 'cargobridge-ff5ec.appspot.com',
-    iosClientId: '595210072308-ulbmsesdh9kqinv6eo795ckj26l659lt.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA6oXG_8r_o0ShAKvlThB37dd_wrVluuCY',
+    appId: '1:88512570782:ios:5ce6bd26915cea3e7ce28f',
+    messagingSenderId: '88512570782',
+    projectId: 'asanosanapp',
+    storageBucket: 'asanosanapp.appspot.com',
+    iosClientId: '88512570782-ji1i6v3oerko7n98dcvlu3q0r5g2gq4h.apps.googleusercontent.com',
     iosBundleId: 'com.example.carGoBridge',
   );
 }

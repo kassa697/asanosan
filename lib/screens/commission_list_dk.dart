@@ -12,12 +12,13 @@ class CommissionListDKPage extends StatefulWidget {
   const CommissionListDKPage({super.key});
 
   @override
-  State<CommissionListDKPage> createState() => _CommissionListDKPageState();
+  _CommissionListDKPageState createState() => _CommissionListDKPageState();
 }
 
 class _CommissionListDKPageState extends State<CommissionListDKPage> {
   final ordersCollection = FirebaseFirestore.instance.collection('orders');
   bool isChecked = false;
+
   String addCommaToNum({required int num}){
     final formatter = intl.NumberFormat("#,###");
     String numWithComma = formatter.format(num);
